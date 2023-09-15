@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3305/crawler_taiwan_news
+    username: root
+    password: dagongcnm
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
