@@ -44,12 +44,13 @@ public class NewsItemTask {
                 break;
             }
             for (Element element : elements) {
+                NewsItem newsItem = new NewsItem();
                 //解析新闻网页
                 String newsPage = element.select("[lanmu1]").attr("lanmu1");
                 //判断新闻是否已存储
                 List<NewsItem> exsitNews = this.newsItemService.findExsitNews(newsPage);
                 if (!CollectionUtils.isEmpty(exsitNews)){
-                    continue;//已存储则跳过
+                    newsItem.setNewsId(exsitNews.get(0).getNewsId());
                 }
 
                 //解析新闻时间
@@ -114,7 +115,7 @@ public class NewsItemTask {
                         String oldPic = "https:" + imgEl.attr("src");
                         String newsPic = this.httpUtils.getImage(oldPic);
                         picList.add(newsPic);
-                        newsText.replace(oldPic,newsPic);
+                        newsText = newsText.replace(imgEl.attr("src"), newsPic);
                     }
                     try {
                         newsPics = this.MAPPER.writeValueAsString(picList);
@@ -122,7 +123,7 @@ public class NewsItemTask {
                         e.printStackTrace();
                     }
                 }
-                NewsItem newsItem = new NewsItem();
+
                 newsItem.setNewsTitle(newsTitle);
                 newsItem.setNewsText(newsText);
                 newsItem.setEditorInCharge(editorInCharge);
