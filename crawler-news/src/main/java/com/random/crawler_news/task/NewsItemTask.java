@@ -50,7 +50,8 @@ public class NewsItemTask {
                 //判断新闻是否已存储
                 List<NewsItem> exsitNews = this.newsItemService.findExsitNews(newsPage);
                 if (!CollectionUtils.isEmpty(exsitNews)){
-                    newsItem.setNewsId(exsitNews.get(0).getNewsId());
+                    //已存储跳过
+                    continue;
                 }
 
                 //解析新闻时间
